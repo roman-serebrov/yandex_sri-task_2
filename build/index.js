@@ -150,7 +150,7 @@ function prepareData(entities, { sprintId }) {
                 title: "Больше всего коммитов",
                 subtitle: currentSprint.name,
                 emoji: "👑",
-                users: leaders.slice(0, 5).map(user => {
+                users: leaders.map(user => {
                     user.valueText = String(user.valueText)
                     return user;
                 }),
@@ -162,7 +162,7 @@ function prepareData(entities, { sprintId }) {
                 title: "Коммиты",
                 subtitle: currentSprint.name,
                 values: commitsBySprint,
-                users: leaders.slice(0, 3).map(user => {
+                users: leaders.map(user => {
                     user.valueText = String(user.valueText)
                     return user;
                 }),
@@ -205,6 +205,6 @@ function prepareData(entities, { sprintId }) {
 }
 
 // TODO: перед отправкой закомментировать
-// console.log(JSON.stringify(prepareData(input, { sprintId: 961 })));
+// console.log(prepareData(input, { sprintId: 961 }));
 
 module.exports = { prepareData };
