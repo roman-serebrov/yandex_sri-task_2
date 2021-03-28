@@ -38,6 +38,13 @@ const lines1000 = '501 — 1000 строк';
 const lines500 = '101 — 500 строк';
 const lines100 = '1 — 100 строк';
 
+const userSorter = (a, b) => {
+    if (a.valueText === b.valueText) {
+        return a.id - b.id;
+    }
+    return b.valueText - a.valueText;
+};
+
 const getCommitLinesStat = (commits) => {
     const commitStats = {
         [lines1001]: 0,
@@ -119,7 +126,7 @@ function prepareData(entities, { sprintId }) {
             ...user,
             valueText: commitsByAuthor[user.id].length,
         }
-    }).sort((a, b) => b.valueText - a.valueText);
+    }).sort(userSorter);
 
     return [
         {
@@ -138,7 +145,7 @@ function prepareData(entities, { sprintId }) {
                             return acc + linesNumber;
                         }, 0),
                     }
-                }).sort((a, b) => b.valueText - a.valueText).map(user => {
+                }).sort(userSorter).map(user => {
                     user.valueText = pluralizeVotes(user.valueText);
                     return user;
                 }),
