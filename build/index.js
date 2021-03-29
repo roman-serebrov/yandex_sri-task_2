@@ -1,6 +1,3 @@
-// TODO: перед отправкой закомментировать
-// const input = require('../input');
-
 const groupByField = (arr, field) => arr.reduce((acc, item) => {
     const fieldValue = item[field];
     if (!acc[fieldValue]) {
@@ -78,12 +75,12 @@ const pluralize = (base, variants) => {
         return acc;
     }, new Array(10).fill(''));
 
-    return (value, wrap = v => v) => `${wrap(value)} ${base + variants[Math.abs(value) % 10]}`;
+    return (value, wrap = v => v) => `${wrap(value)} ${base + (variants[Math.abs(value)] || variants[Math.abs(value) % 10])}`;
 }
 const signWrapper = value => value > 0 ? `+${value}` : value;
 const defaultVariants = {
     'a': [2, 3, 4],
-    'ов': [5, 6, 7, 8, 9, 0],
+    'ов': [5, 6, 7, 8, 9, 0, 11, 12, 13, 14],
 };
 const pluralizeVotes = pluralize('голос', defaultVariants);
 const pluralizeCommits = pluralize('коммит', defaultVariants);
@@ -210,8 +207,5 @@ function prepareData(entities, { sprintId }) {
         }
     ];
 }
-
-// TODO: перед отправкой закомментировать
-// console.log(prepareData(input, { sprintId: 961 }));
 
 module.exports = { prepareData };
