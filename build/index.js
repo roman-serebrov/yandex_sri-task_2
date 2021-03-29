@@ -125,6 +125,8 @@ function prepareData(entities, { sprintId }) {
         }
     }).sort(userSorter);
 
+    const commentsBySprint = entities.filter(getEntityBySprint('Comment', currentSprint, 'createdAt'));
+
     return [
         {
             alias: "vote",
@@ -135,12 +137,7 @@ function prepareData(entities, { sprintId }) {
                 users: users.map(user => {
                     return {
                         ...user,
-                        valueText: commitsByAuthor[user.id].reduce((acc, commit) => {
-                            const linesNumber = commit.summaries.reduce((likes, summary) => likes + summary.comments.reduce((commentLikes, comment) => {
-                                return commentLikes + comment.likes.length;
-                            }, 0), 0);
-                            return acc + linesNumber;
-                        }, 0),
+                        valueText: commentsBySprint.filter(comment => comment.author === user.id).map(comment => comment.likes.length).filter(Boolean).reduce((a, b) => a + b, 0)
                     }
                 }).sort(userSorter).map(user => {
                     user.valueText = pluralizeVotes(user.valueText);
