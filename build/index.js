@@ -79,7 +79,7 @@ const pluralize = (base, variants) => {
 }
 const signWrapper = value => value > 0 ? `+${value}` : value;
 const defaultVariants = {
-    'a': [2, 3, 4],
+    'а': [2, 3, 4],
     'ов': [5, 6, 7, 8, 9, 0, 11, 12, 13, 14],
 };
 const pluralizeVotes = pluralize('голос', defaultVariants);
